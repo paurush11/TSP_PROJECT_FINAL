@@ -55,7 +55,7 @@ public class GraphPlotter{
 	        ChartPanel panel = new ChartPanel(chart);
 	        JFrame frame = new JFrame("Graph Plot");
 	        frame.setContentPane(panel);
-	        frame.setSize(500, 500);
+	        frame.setSize(1000, 1000);
 	        frame.setVisible(true);
 	    }
 

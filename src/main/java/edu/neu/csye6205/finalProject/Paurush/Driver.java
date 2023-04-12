@@ -18,6 +18,7 @@ import org.jgrapht.alg.util.Pair;
 
 
 import edu.neu.csye6205.finalProject.Paurush.ACO.runACO;
+import edu.neu.csye6205.finalProject.Paurush.GeneticAlgorithm.GeneticAlgorithm;
 import edu.neu.csye6205.finalProject.Paurush.SimulatedAnnealing.SimulatedAnnealingOptimization;
 import edu.neu.csye6205.finalProject.Paurush.tactical.optimization2opt;
 import edu.neu.csye6205.finalProject.Paurush.tactical.optimization3opt;
@@ -52,7 +53,7 @@ public class Driver {
 //		GraphPlotter.plotGraph(graph);
 		Graph mst = PrimAlgorithm.findMinimumSpanningTree(graph);
 		GraphPlotter.plotGraph(mst);
-System.out.println("----------------------------------");
+        System.out.println("----------------------------------");
 		// Print out the nodes and edges in the MST
 		List<Node> nodes2 = mst.getNodes();
 		List<Edge> edges2 = mst.getEdges();
@@ -81,22 +82,27 @@ System.out.println("----------------------------------");
 		
 		double d = calculatePathDistance(hamiltonianTour);
 		double x = calculatePathDistance(mst);
-		List<Node> opt3 = optimization3opt.threeOpt(hamiltonianTour);
-		List<Node> opt2 = optimization2opt.twoOpt(hamiltonianTour);
-		List<Node> SA = SimulatedAnnealingOptimization.simulatedAnnealingOptimization(hamiltonianTour);
+		List<Node> hamiltonianTourCopy = hamiltonianTour;
+		List<Node> opt3 = optimization3opt.threeOpt(hamiltonianTourCopy);
+		List<Node> opt2 = optimization2opt.twoOpt(hamiltonianTourCopy);
+		List<Node> SA = SimulatedAnnealingOptimization.simulatedAnnealingOptimization(hamiltonianTourCopy);
+		List<Node> geneticAlgo = GeneticAlgorithm.optimize(hamiltonianTourCopy);
 		double three = calculatePathDistance(opt3);
 		double two = calculatePathDistance(opt2);
 		double sa_val = calculatePathDistance(SA);
+		double genetic_val = calculatePathDistance(geneticAlgo);
 		System.out.println("\n--- Hamiltonian Tour   " + d + "   Miles");
 		System.out.println("\n--- MST   " + x + "   Miles");
 		System.out.println("\n--- Three Opt   " + three + "   Miles");
 		System.out.println("\n--- Two Opt   " + two + "   Miles");
 		System.out.println("\n--- SA   " + sa_val + "   Miles");
+		System.out.println("\n--- genetic  " + genetic_val + "   Miles");
 		System.out.println();
 		System.out.println("\n--- Hamiltonian Tour/MST   " + d/x);
 		System.out.println("\n--- Three Opt/MST   " + three/x);
 		System.out.println("\n--- Two Opt/MST   " + two/x);
 		System.out.println("\n--- SA/MST   " + sa_val/x);
+		System.out.println("\n--- genetic/MST   " + genetic_val/x );
 		NodeGraph.plot(hamiltonianTour);
 		
 		///ACO

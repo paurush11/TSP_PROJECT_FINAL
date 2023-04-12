@@ -13,6 +13,8 @@ import java.util.Set;
 
 import org.jgrapht.alg.util.Pair;
 
+import edu.neu.csye6205.finalProject.Paurush.tactical.optimization2opt;
+import edu.neu.csye6205.finalProject.Paurush.tactical.optimization3opt;
 import edu.neu.csye6205.finalProject.Paurush.util.*;
 
 
@@ -70,10 +72,20 @@ System.out.println("----------------------------------");
 		
 		double d = calculatePathDistance(hamiltonianTour);
 		double x = calculatePathDistance(mst);
+		List<Node> opt3 = optimization3opt.threeOpt(hamiltonianTour);
+		List<Node> opt2 = optimization2opt.twoOpt(hamiltonianTour);
+		double three = calculatePathDistance(opt3);
+		double two = calculatePathDistance(opt2);
 		System.out.println("\n---    " + d + "   Miles");
 		System.out.println("\n---    " + x + "   Miles");
+		System.out.println("\n---    " + three + "   Miles");
+		System.out.println("\n---    " + two + "   Miles");
 		System.out.println(d/x);
+		System.out.println(three/x);
+		System.out.println(two/x);
 		NodeGraph.plot(hamiltonianTour);
+		
+		
 		
 		
 	}

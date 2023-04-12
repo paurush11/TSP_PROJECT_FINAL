@@ -3,7 +3,6 @@ package edu.neu.csye6205.finalProject.Paurush.util;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -13,17 +12,9 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.annotations.XYLineAnnotation;
-import org.jfree.chart.axis.NumberAxis;
-import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
-import org.jfree.chart.renderer.xy.XYItemRenderer;
-import org.jfree.chart.renderer.xy.XYShapeRenderer;
-import org.jfree.data.xy.DefaultXYDataset;
-import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
-import org.jfree.ui.ApplicationFrame;
-
 import edu.neu.csye6205.finalProject.Paurush.Node;
 
 public class NodeGraph {
@@ -60,7 +51,7 @@ public class NodeGraph {
             edges.add(new XYLineAnnotation(
                     node1.getLongitude(), node1.getLatitude(),
                     node2.getLongitude(), node2.getLatitude(),
-                    new BasicStroke(2f), Color.red
+                    new BasicStroke(2f), getRandomColor()
             ));
         }
 
@@ -71,7 +62,7 @@ public class NodeGraph {
 
         // Create and show the frame
         ChartPanel chartPanel = new ChartPanel(chart);
-        chartPanel.setPreferredSize(new Dimension(500, 500));
+        chartPanel.setPreferredSize(new Dimension(1000, 1000));
         JFrame frame = new JFrame("Graph Plot");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setContentPane(chartPanel);
@@ -134,10 +125,10 @@ public class NodeGraph {
 //
 //        return chart;
 //    }
-	private static final double MIN_LATITUDE = 51.261334;
-    private static final double MAX_LATITUDE = 51.684761;
-    private static final double MIN_LONGITUDE = -0.505587;
-    private static final double MAX_LONGITUDE = 0.297941;
+//	private static final double MIN_LATITUDE = 51.261334;
+//    private static final double MAX_LATITUDE = 51.684761;
+//    private static final double MIN_LONGITUDE = -0.505587;
+//    private static final double MAX_LONGITUDE = 0.297941;
 
 //    public static void createChart(List<Node> nodes) {
 //        // Create dataset with node locations

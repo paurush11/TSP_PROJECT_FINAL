@@ -1,7 +1,9 @@
 package edu.neu.csye6205.finalProject.Paurush;
 
+import java.io.IOException;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Deque;
 import java.util.HashMap;
@@ -10,17 +12,24 @@ import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Set;
+import java.util.stream.IntStream;
 
 import org.jgrapht.alg.util.Pair;
 
+
+import edu.neu.csye6205.finalProject.Paurush.ACO.runACO;
+import edu.neu.csye6205.finalProject.Paurush.SimulatedAnnealing.SimulatedAnnealingOptimization;
 import edu.neu.csye6205.finalProject.Paurush.tactical.optimization2opt;
 import edu.neu.csye6205.finalProject.Paurush.tactical.optimization3opt;
 import edu.neu.csye6205.finalProject.Paurush.util.*;
 
 
 public class Driver {
-	public static void main(String[] args) {
-		Graph graph = new Graph();
+	public static Graph graph;
+	public static void main(String[] args) throws IOException {
+		
+		Driver driver = new Driver();
+		Driver.graph = new Graph();
 		Fetch.main(args);
 		graph.setNodes(Nodes.getNodes());
 
@@ -40,7 +49,7 @@ public class Driver {
 //		for (Edge edge : edges) {
 //			System.out.println("Edge " + edge.getA().getId() + " - " + edge.getB().getId());
 //		}
-		GraphPlotter.plotGraph(graph);
+//		GraphPlotter.plotGraph(graph);
 		Graph mst = PrimAlgorithm.findMinimumSpanningTree(graph);
 		GraphPlotter.plotGraph(mst);
 System.out.println("----------------------------------");
@@ -74,20 +83,37 @@ System.out.println("----------------------------------");
 		double x = calculatePathDistance(mst);
 		List<Node> opt3 = optimization3opt.threeOpt(hamiltonianTour);
 		List<Node> opt2 = optimization2opt.twoOpt(hamiltonianTour);
+		List<Node> SA = SimulatedAnnealingOptimization.simulatedAnnealingOptimization(hamiltonianTour);
 		double three = calculatePathDistance(opt3);
 		double two = calculatePathDistance(opt2);
-		System.out.println("\n---    " + d + "   Miles");
-		System.out.println("\n---    " + x + "   Miles");
-		System.out.println("\n---    " + three + "   Miles");
-		System.out.println("\n---    " + two + "   Miles");
-		System.out.println(d/x);
-		System.out.println(three/x);
-		System.out.println(two/x);
+		double sa_val = calculatePathDistance(SA);
+		System.out.println("\n--- Hamiltonian Tour   " + d + "   Miles");
+		System.out.println("\n--- MST   " + x + "   Miles");
+		System.out.println("\n--- Three Opt   " + three + "   Miles");
+		System.out.println("\n--- Two Opt   " + two + "   Miles");
+		System.out.println("\n--- SA   " + sa_val + "   Miles");
+		System.out.println();
+		System.out.println("\n--- Hamiltonian Tour/MST   " + d/x);
+		System.out.println("\n--- Three Opt/MST   " + three/x);
+		System.out.println("\n--- Two Opt/MST   " + two/x);
+		System.out.println("\n--- SA/MST   " + sa_val/x);
 		NodeGraph.plot(hamiltonianTour);
 		
-		
-		
-		
+		///ACO
+//		runACO r = new runACO();
+//		System.out.println("> "+r.getNumberOfAnts() + " Artificial Ants ...");
+//		runACO.printHeading();
+//		edu.neu.csye6205.finalProject.Paurush.ACO.AntColonyOptimization aco = new edu.neu.csye6205.finalProject.Paurush.ACO.AntColonyOptimization();
+//		runACO.initialRoute = (ArrayList<Node>) hamiltonianTour;
+//		IntStream.range(1, r.getNumberOfAnts()).forEach(y -> {
+//			r.getExecutorCompletionService().submit(new edu.neu.csye6205.finalProject.Paurush.ACO.Ant(aco, y));
+//			r.setActiveAnts(r.getActiveAnts() + 1);
+//			if (Math.random() > runACO.getProcessingCycleProbability()) r.processAnts();
+//		});
+//		r.processAnts();
+//		runACO.getExecutorService().shutdownNow();
+//		System.out.println("\nOptimal Route : "+Arrays.toString(r.getShortestRoute().getCities().toArray()));
+//		System.out.println("w/ Distance   : " + r.getShortestRoute().getDistance());
 	}
 	
 	public static List<Pair<Node, Node>> generatePerfectMatching(Graph graph) {

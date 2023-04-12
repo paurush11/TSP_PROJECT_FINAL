@@ -7,7 +7,7 @@ public class Distance {
 	private static final double EARTH_EQUATORIAL_RADIUS = 6378.1370D;
    
     private static final double CONVERT_KM_TO_MILES = 0.621371;
-	
+    //Haversine formula
     public static double measureDistance(Node x, Node y) { 
 		 double deltaLongitude = x.getLongitude() - y.getLongitude();
 	     double deltaLatitude = x.getLatitude() - y.getLatitude();

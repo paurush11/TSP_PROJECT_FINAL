@@ -22,9 +22,9 @@ public class Fetch {
                 dataList.add(values);
             }
            
-            for (int i = 1; i < 20; i++) {
-            	 if (!dataList.get(i)[4].isEmpty() && !dataList.get(i)[5].isEmpty()) {
-            		 Node customCity = new Node("City "+ String.valueOf(i), Double.parseDouble(dataList.get(i)[4]), Double.parseDouble(dataList.get(i)[5]));
+            for (int i = 1; i < 150; i++) {
+            	 if (!dataList.get(i)[2].isEmpty() && !dataList.get(i)[1].isEmpty()) {
+            		 Node customCity = new Node("City "+ String.valueOf(i), Double.parseDouble(dataList.get(i)[2]), Double.parseDouble(dataList.get(i)[1]));
                Nodes.addNode(customCity);
                 
             	 }
@@ -37,7 +37,7 @@ public class Fetch {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Solve("/Users/paurushbatish/Desktop/PSAassignments/project/Traveling-Salesman-Team-Project/src/edu/neu/info6205/location.csv");
+		Solve("/Users/paurushbatish/Desktop/FinalProjectPSA/src/main/java/edu/neu/csye6205/finalProject/Paurush/crimeSample.csv");
 		
 //		 Nodes.getNodes().forEach(n->{
 //			System.out.println(n.getId()+ " "+ n.getLatitude()+ " "+ n.getLongitude());

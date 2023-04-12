@@ -37,6 +37,10 @@ public class Node {
 		return s;
 		
 	}
+	public String getName() {
+		// TODO Auto-generated method stub
+		return id;
+	}
 	
 	
 	

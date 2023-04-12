@@ -82,7 +82,10 @@ public class Driver {
 		
 		double d = calculatePathDistance(hamiltonianTour);
 		double x = calculatePathDistance(mst);
-		List<Node> hamiltonianTourCopy = hamiltonianTour;
+		List<Node> hamiltonianTourCopy = new ArrayList<Node>();
+		hamiltonianTour.forEach(z ->{
+			 hamiltonianTourCopy.add(z);
+		});
 		List<Node> opt3 = optimization3opt.threeOpt(hamiltonianTourCopy);
 		List<Node> opt2 = optimization2opt.twoOpt(hamiltonianTourCopy);
 		List<Node> SA = SimulatedAnnealingOptimization.simulatedAnnealingOptimization(hamiltonianTourCopy);

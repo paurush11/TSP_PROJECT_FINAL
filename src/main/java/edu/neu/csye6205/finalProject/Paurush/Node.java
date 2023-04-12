@@ -31,6 +31,13 @@ public class Node {
 		this.longitude = longitude;
 	}
 	
+	public String toString() {
+		String s = "";
+		s+= this.id;
+		return s;
+		
+	}
+	
 	
 	
 }

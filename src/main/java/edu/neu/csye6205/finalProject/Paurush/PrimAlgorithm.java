@@ -15,6 +15,7 @@ public class PrimAlgorithm {
 
         // Add the first node to the visited set
         visitedNodes.add(graph.getNodes().get(0));
+        minimumSpanningTree.addNode(graph.getNodes().get(0));
 
         // Create a priority queue to store the edges in ascending order by weight
         PriorityQueue<Edge> priorityQueue = new PriorityQueue<>(graph.getEdges().size(),
@@ -46,7 +47,7 @@ public class PrimAlgorithm {
             // Add the unvisited endpoint to the visited set
             Node unvisitedEndpoint = visitedNodes.contains(endpointA) ? endpointB : endpointA;
             visitedNodes.add(unvisitedEndpoint);
-
+            minimumSpanningTree.addNode(unvisitedEndpoint);
             // Add all the edges connected to the new visited node to the priority queue
             for (Edge edge : graph.getEdges()) {
                 if (edge.getA().equals(unvisitedEndpoint) || edge.getB().equals(unvisitedEndpoint)) {

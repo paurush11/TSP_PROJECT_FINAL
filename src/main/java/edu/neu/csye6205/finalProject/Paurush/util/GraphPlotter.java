@@ -1,7 +1,6 @@
 package edu.neu.csye6205.finalProject.Paurush.util;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.util.List;
 
 import javax.swing.JFrame;
@@ -13,66 +12,51 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
-
 import edu.neu.csye6205.finalProject.Paurush.Edge;
 import edu.neu.csye6205.finalProject.Paurush.Graph;
 import edu.neu.csye6205.finalProject.Paurush.Node;
 
 
 
-public class GraphPlotter {
-    public static void plotGraph(Graph graph) {
-        // Create a new XY series collection
-        XYSeriesCollection dataset = new XYSeriesCollection();
+public class GraphPlotter{
+	
 
-        // Add a new series for each node in the graph
-        List<Node> nodes = graph.getNodes();
-        for (Node node : nodes) {
-            XYSeries series = new XYSeries(node.getId());
-            series.add(node.getLatitude(), node.getLongitude());
-            dataset.addSeries(series);
-        }
+	 public static void plotGraph(Graph graph) {
+	        XYSeriesCollection dataset = new XYSeriesCollection();
+	        XYSeries series = new XYSeries("Edges");
 
-        // Add lines for each edge in the graph
-        List<Edge> edges = graph.getEdges();
-        for (Edge edge : edges) {
-            Node a = edge.getA();
-            Node b = edge.getB();
-            double[] x = {a.getLatitude(), b.getLatitude()};
-            double[] y = {a.getLongitude(), b.getLongitude()};
-            dataset.addSeries(createLineSeries(x, y));
-        }
+	        List<Node> nodes = graph.getNodes();
+	        List<Edge> edges = graph.getEdges();
 
-        // Create a new chart
-        JFreeChart chart = ChartFactory.createXYLineChart("Graph Plot", "Latitude", "Longitude", dataset,
-                PlotOrientation.VERTICAL, true, true, false);
+	        // Add all the nodes to the series
+	        for (Node node : nodes) {
+	            series.add(node.getLatitude(), node.getLongitude());
+	        }
 
-        // Set the background color of the chart
-        chart.setBackgroundPaint(Color.white);
+	        // Add all the edges to the series
+	        for (Edge edge : edges) {
+	            series.add(edge.getA().getLatitude(), edge.getA().getLongitude());
+	            series.add(edge.getB().getLatitude(), edge.getB().getLongitude());
+	            
+	        }
 
-        // Get the plot object and set the axis colors
-        XYPlot plot = chart.getXYPlot();
-        plot.setBackgroundPaint(Color.white);
-        plot.setDomainGridlinePaint(Color.lightGray);
-        plot.setRangeGridlinePaint(Color.lightGray);
+	        dataset.addSeries(series);
 
-        // Create a new chart panel and set the size
-        ChartPanel chartPanel = new ChartPanel(chart);
-        chartPanel.setPreferredSize(new Dimension(500, 500));
+	        // Create the chart and plot
+	        JFreeChart chart = ChartFactory.createXYLineChart("Graph", "Latitude", "Longitude", dataset, PlotOrientation.VERTICAL, true, true, false);
+	        XYPlot plot = chart.getXYPlot();
 
-        // Show the chart in a new window
-        JFrame frame = new JFrame("Graph Plot");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().add(chartPanel);
-        frame.pack();
-        frame.setVisible(true);
-    }
+	        // Customize the plot
+	        plot.setBackgroundPaint(Color.white);
+	        plot.setDomainGridlinePaint(Color.black);
+	        plot.setRangeGridlinePaint(Color.black);
 
-    private static XYSeries createLineSeries(double[] x, double[] y) {
-        XYSeries series = new XYSeries("");
-        for (int i = 0; i < x.length; i++) {
-            series.add(x[i], y[i]);
-        }
-        return series;
-    }
+	        // Create and show the panel
+	        ChartPanel panel = new ChartPanel(chart);
+	        JFrame frame = new JFrame("Graph Plot");
+	        frame.setContentPane(panel);
+	        frame.setSize(500, 500);
+	        frame.setVisible(true);
+	    }
+
 }

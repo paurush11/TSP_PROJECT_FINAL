@@ -35,5 +35,25 @@ public class Graph {
 	public void setEdges(List<Edge> edges) {
 		this.edges = edges;
 	}
+
+	public int degree(Node node) {
+		 int degree = 0;
+		    for (Edge edge : edges) {
+		        if (edge.getA() == node || edge.getB() == node) {
+		            degree++;
+		        }
+		    }
+		    return degree;
+	}
+	
+	public Edge getEdge(Node a, Node b) {
+		for(Edge e: edges) {
+			if(e.getA() == a && e.getB() == b) {
+				return e;
+			}
+		}
+		return null;
+		
+	}
     
 }

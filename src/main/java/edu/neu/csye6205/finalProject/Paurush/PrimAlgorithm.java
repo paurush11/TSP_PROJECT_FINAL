@@ -6,9 +6,9 @@ import java.util.Set;
 
 public class PrimAlgorithm {
 
-    public static Graph findMinimumSpanningTree(Graph graph) {
+    public static CustomGraph findMinimumSpanningTree(CustomGraph graph) {
         // Create a new graph to hold the minimum spanning tree
-        Graph minimumSpanningTree = new Graph();
+        CustomGraph minimumSpanningTree = new CustomGraph();
 
         // Create a set to keep track of the visited nodes
         Set<Node> visitedNodes = new HashSet<>();

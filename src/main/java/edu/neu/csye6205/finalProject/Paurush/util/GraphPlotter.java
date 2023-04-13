@@ -13,7 +13,7 @@ import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import edu.neu.csye6205.finalProject.Paurush.Edge;
-import edu.neu.csye6205.finalProject.Paurush.Graph;
+import edu.neu.csye6205.finalProject.Paurush.CustomGraph;
 import edu.neu.csye6205.finalProject.Paurush.Node;
 
 
@@ -21,7 +21,7 @@ import edu.neu.csye6205.finalProject.Paurush.Node;
 public class GraphPlotter{
 	
 
-	 public static void plotGraph(Graph graph) {
+	 public static void plotGraph(CustomGraph graph) {
 	        XYSeriesCollection dataset = new XYSeriesCollection();
 	        XYSeries series = new XYSeries("Edges");
 

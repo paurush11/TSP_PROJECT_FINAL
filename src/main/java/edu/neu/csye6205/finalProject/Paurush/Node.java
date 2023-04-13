@@ -1,5 +1,7 @@
 package edu.neu.csye6205.finalProject.Paurush;
 
+import java.awt.Point;
+
 public class Node {
 	private String id;
 	private double latitude;
@@ -40,6 +42,10 @@ public class Node {
 	public String getName() {
 		// TODO Auto-generated method stub
 		return id;
+	}
+	public Point getPosition() {
+		// TODO Auto-generated method stub
+		return new Point((int)this.getLatitude(),(int)this.getLongitude());
 	}
 	
 	

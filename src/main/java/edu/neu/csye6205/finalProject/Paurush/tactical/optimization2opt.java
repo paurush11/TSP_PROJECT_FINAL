@@ -24,5 +24,7 @@ public class optimization2opt {
 	        }
 	    }
 	    return tour;
+		 
+//	   
 	}
 }

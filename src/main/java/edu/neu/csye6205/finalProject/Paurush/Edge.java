@@ -22,4 +22,9 @@ public class Edge {
     public double getEdgeWeight() {
         return this.edgeWeight;
     }
+
+	public String getId() {
+		// TODO Auto-generated method stub
+		return "";
+	}
 }

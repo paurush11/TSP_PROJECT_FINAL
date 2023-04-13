@@ -3,11 +3,11 @@ package edu.neu.csye6205.finalProject.Paurush;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Graph {
+public class CustomGraph {
     private List<Node> nodes;
     private List<Edge> edges;
 
-    public Graph() {
+    public CustomGraph() {
         nodes = new ArrayList<>();
         edges = new ArrayList<>();
     }

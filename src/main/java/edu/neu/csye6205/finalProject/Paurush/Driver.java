@@ -23,6 +23,7 @@ import edu.neu.csye6205.finalProject.Paurush.ACO.runACO;
 import edu.neu.csye6205.finalProject.Paurush.GeneticAlgorithm.GeneticAlgorithm;
 import edu.neu.csye6205.finalProject.Paurush.GraphVisualizer.GraphVisualizer;
 import edu.neu.csye6205.finalProject.Paurush.GraphVisualizer.MSTVisualizer;
+import edu.neu.csye6205.finalProject.Paurush.SimulatedAnnealing.SA2opt;
 import edu.neu.csye6205.finalProject.Paurush.SimulatedAnnealing.SimulatedAnnealingOptimization;
 import edu.neu.csye6205.finalProject.Paurush.tactical.optimization2opt;
 import edu.neu.csye6205.finalProject.Paurush.tactical.optimization3opt;
@@ -86,7 +87,7 @@ public class Driver {
 			 hamiltonianTourCopy.add(z);
 		});
 		List<Node> opt3 = optimization3opt.threeOpt(hamiltonianTourCopy);
-		List<Node> SA = SimulatedAnnealingOptimization.simulatedAnnealingOptimization(hamiltonianTourCopy);
+		List<Node> SA = SA2opt.simulatedAnnealingOptimization(hamiltonianTourCopy);
 		List<Node> geneticAlgo = GeneticAlgorithm.optimize(hamiltonianTour);
 		List<Node> opt2 = optimization2opt.twoOpt(SA);
 		double three = calculatePathDistance(opt3);

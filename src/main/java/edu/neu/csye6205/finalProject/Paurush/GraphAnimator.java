@@ -35,7 +35,13 @@ public class GraphAnimator {
             BufferedImage frame = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
             Graphics2D g2d = frame.createGraphics();
 
-            // Draw nodes
+            // Set background color
+            g2d.setColor(Color.WHITE);
+            g2d.fillRect(0, 0, width, height);
+
+            // Draw nodes and edges as before
+            // ...
+         // Draw nodes
             g2d.setColor(Color.RED);
             for (Node node : nodes) {
                 int xPixel = (int) ((node.getLongitude() - xMin) / (xMax - xMin) * width);
@@ -56,13 +62,15 @@ public class GraphAnimator {
                 g2d.drawLine(x1, y1, x2, y2);
             }
 
+
             frames.add(frame);
             g2d.dispose();
         }
 
         JFrame frame = new JFrame();
+        frame.setTitle("Paurush Batish");
         frame.setSize(width, height);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setVisible(true);
 
         JLabel animationLabel = new JLabel(new ImageIcon(frames.get(0)));
@@ -76,5 +84,7 @@ public class GraphAnimator {
                 e.printStackTrace();
             }
         }
+
+        frame.dispose();
     }
 }

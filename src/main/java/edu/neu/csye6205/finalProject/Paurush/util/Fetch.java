@@ -22,7 +22,7 @@ public class Fetch {
                 dataList.add(values);
             }
            
-            for (int i = 1; i < dataList.size(); i++) {
+            for (int i = 1; i < 50; i++) {
             	 if (!dataList.get(i)[2].isEmpty() && !dataList.get(i)[1].isEmpty()) {
             		 Node customCity = new Node("City "+ String.valueOf(i), Double.parseDouble(dataList.get(i)[2]), Double.parseDouble(dataList.get(i)[1]));
                Nodes.addNode(customCity);

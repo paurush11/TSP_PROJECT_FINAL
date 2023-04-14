@@ -8,16 +8,21 @@ import java.util.List;
 
 public class GraphAnimator {
     private final CustomGraph graph;
-    private final int width;
-    private final int height;
-    private final int delay;
+    private static final int width = 1200;
+    private static final int height = 1200;
+    private static final int delay = 200;
     private static final int NODE_RADIUS = 5;
+    public final String name;
+    private static final Color BGColor= Color.WHITE; 
+    private final Color NodeColor; 
+    private final Color EdgeColor;
+    
 
-    public GraphAnimator(CustomGraph graph, int width, int height, int delay) {
+    public GraphAnimator(CustomGraph graph, String name, Color nodeColor, Color edgeColor) {
         this.graph = graph;
-        this.width = width;
-        this.height = height;
-        this.delay = delay;
+        this.name = name;
+		this.NodeColor = nodeColor;
+		this.EdgeColor = edgeColor;
     }
 
     public void animate() {
@@ -26,23 +31,23 @@ public class GraphAnimator {
         int nFrames = edges.size();
         List<BufferedImage> frames = new ArrayList<>();
 
-        double xMin = -0.007;
-        double xMax = 0.003;
-        double yMin = 0.8966;
-        double yMax = 0.9016;
+        double xMin = -0.013;
+        double xMax = 0.008;
+        double yMin = 0.8958;
+        double yMax = 0.9020;
 
         for (int i = 0; i < nFrames; i++) {
             BufferedImage frame = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
             Graphics2D g2d = frame.createGraphics();
 
             // Set background color
-            g2d.setColor(Color.WHITE);
+            g2d.setColor(BGColor);
             g2d.fillRect(0, 0, width, height);
 
             // Draw nodes and edges as before
             // ...
          // Draw nodes
-            g2d.setColor(Color.RED);
+            g2d.setColor(NodeColor);
             for (Node node : nodes) {
                 int xPixel = (int) ((node.getLongitude() - xMin) / (xMax - xMin) * width);
                 int yPixel = (int) ((node.getLatitude() - yMin) / (yMax - yMin) * height);
@@ -50,7 +55,7 @@ public class GraphAnimator {
             }
 
             // Draw edges up to and including the i-th edge
-            g2d.setColor(Color.BLUE);
+            g2d.setColor(EdgeColor);
             for (int j = 0; j <= i; j++) {
                 Edge edge = edges.get(j);
                 Node a = edge.getA();
@@ -68,7 +73,7 @@ public class GraphAnimator {
         }
 
         JFrame frame = new JFrame();
-        frame.setTitle("Paurush Batish");
+        frame.setTitle(name);
         frame.setSize(width, height);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setVisible(true);

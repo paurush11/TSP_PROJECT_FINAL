@@ -10,9 +10,9 @@ import edu.neu.csye6205.finalProject.Paurush.Node;
 public class GeneticAlgorithm {
 	public static final int populationSize = 1000;
 	public static final double mutationRate = 0.5;
-    public static final int tournamentSize = 9;
-    public static final int elitismCount = 9;
-    public static final int generations = 550;  
+    public static final int tournamentSize = 5;
+    public static final int elitismCount = 5;
+    public static final int generations = 650;  
   
     public static List<Node> optimize(List<Node> nodes) {
         List<Chromosome> population = generatePopulation(nodes, populationSize);

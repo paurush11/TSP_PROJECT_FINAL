@@ -1,5 +1,6 @@
 package edu.neu.csye6205.finalProject.Paurush;
 
+import java.awt.Color;
 import java.io.IOException;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -106,13 +107,20 @@ public class Driver {
 		System.out.println("\n--- Two Opt/MST   " + two/x);
 		System.out.println("\n--- SA/MST   " + sa_val/x);
 		System.out.println("\n--- genetic/MST   " + genetic_val/x );
-//		NodeGraph.plot(hamiltonianTourCopy);
+		NodeGraph.plot(hamiltonianTourCopy);
 		CustomGraph graphFinal = createGraph(hamiltonianTour);
-//		GraphAnimatorGIF g = new GraphAnimatorGIF(graphFinal, 1000, 1000, 2);
-		GraphAnimator gp = new GraphAnimator(graphFinal, 1200, 1200, 300);
-//		g.animate();
-		gp.animate();
+
+		GraphAnimator christofidies = new GraphAnimator(graphFinal,"TSP- using Christofidies",Color.RED,Color.BLUE);
+		GraphAnimator threeOpt = new GraphAnimator(graphFinal,"TSP- using threeOpt",Color.RED,Color.BLUE);
+		GraphAnimator twoOpt = new GraphAnimator(graphFinal,"TSP- using twoOpt",Color.RED,Color.BLUE);
+		GraphAnimator SAOpt = new GraphAnimator(graphFinal,"TSP- using SAOpt",Color.RED,Color.BLUE);
+		GraphAnimator Genetic = new GraphAnimator(graphFinal,"TSP- using Genetic",Color.RED,Color.BLUE);
 		
+		christofidies.animate();
+		threeOpt.animate();
+		twoOpt.animate();
+		SAOpt.animate();
+		Genetic.animate();
 		
 //		visualizeGraph(graphFinal, driver.graph.getNodes());
 //		visualizeGraph(graphFinal);

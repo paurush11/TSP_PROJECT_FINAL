@@ -68,8 +68,7 @@ public class Driver {
 		CustomGraph Multi = generateMultigraph(mst, perfectMatchingPairs);
 		List<Node> nodes3 = Multi.getNodes();
 		List<Edge> edges3 = Multi.getEdges();
-		System.out.println(edges2.size());
-		System.out.println(edges3.size());
+
 		
 		List<Node> eulerianTour = getEulerianTour(Multi);
 //		for(Node n : eulerianTour) {
@@ -87,10 +86,11 @@ public class Driver {
 		hamiltonianTour.forEach(z ->{
 			 hamiltonianTourCopy.add(z);
 		});
-		List<Node> opt3 = optimization3opt.threeOpt(hamiltonianTourCopy);
-		List<Node> SA = SA2opt.simulatedAnnealingOptimization(hamiltonianTourCopy);
+//		List<Node> opt3 = optimization3opt.threeOpt(hamiltonianTourCopy);
+		List<Node>opt3 = SimulatedAnnealingOptimization.simulatedAnnealingOptimization(hamiltonianTourCopy);
+		List<Node> SA = SimulatedAnnealingOptimization.simulatedAnnealingOptimization(hamiltonianTourCopy);
 		List<Node> geneticAlgo = GeneticAlgorithm.optimize(hamiltonianTour);
-		List<Node> opt2 = optimization2opt.twoOpt(SA);
+		List<Node> opt2 =SA2opt.simulatedAnnealingOptimization(hamiltonianTourCopy);
 		double three = calculatePathDistance(opt3);
 		double two = calculatePathDistance(opt2);
 		double sa_val = calculatePathDistance(SA);

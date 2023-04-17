@@ -13,7 +13,7 @@ import edu.neu.csye6205.finalProject.Paurush.tactical.optimization3opt;
 
 public class Optimizations3OptUnitTests {
 
-	//@Test
+	@Test
 	void testThreeOpt() {
 		// Create a list of nodes representing a route
 		List<Node> route = new ArrayList<Node>();

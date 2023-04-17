@@ -8,11 +8,11 @@ import java.util.Random;
 import edu.neu.csye6205.finalProject.Paurush.Node;
 
 public class GeneticAlgorithm {
-	public static final int populationSize = 1000;
-	public static final double mutationRate = 0.5;
-    public static final int tournamentSize = 5;
-    public static final int elitismCount = 5;
-    public static final int generations = 650;  
+	public static final int populationSize = 1100;
+	public static final double mutationRate = 0.05;
+    public static final int tournamentSize = 10;
+    public static final int elitismCount = 10;
+    public static final int generations = 1100;  
   
     public static List<Node> optimize(List<Node> nodes) {
         List<Chromosome> population = generatePopulation(nodes, populationSize);

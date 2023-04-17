@@ -35,10 +35,10 @@ public class GraphAnimator {
         int nFrames = edges.size();
         List<BufferedImage> frames = new ArrayList<>();
 
-        double xMin = -0.013;
-        double xMax = 0.008;
-        double yMin = 0.8958;
-        double yMax = 0.9020;
+        double xMin = -0.010;
+        double xMax = 0.005;
+        double yMin = 0.8954;
+        double yMax = 0.9026;
 
         for (int i = 0; i < nFrames; i++) {
             BufferedImage frame = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);

@@ -25,6 +25,6 @@ public class Edge {
 
 	public String getId() {
 		// TODO Auto-generated method stub
-		return "";
+		return this.a.getName()+"-"+this.b.getName();
 	}
 }

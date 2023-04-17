@@ -49,7 +49,9 @@ public class MultigraphUnitTests {
 
 	    assertEquals("2.0", String.valueOf(multigraph.getEdge(nodeA, nodeB).getEdgeWeight()));
     	assertEquals("5.0", String.valueOf(multigraph.getEdge(nodeA, nodeC).getEdgeWeight()));
-    	assertEquals("7.150493489665222", String.valueOf(multigraph.getEdge(nodeB, nodeC).getEdgeWeight()));
-    	assertEquals("16.9823544189376", String.valueOf(multigraph.getEdges().get(3).getEdgeWeight()));
+    	assertEquals("11507.607354809319", String.valueOf(multigraph.getEdge(nodeB, nodeC).getEdgeWeight()));
+    	assertEquals("27330.458645378687", String.valueOf(multigraph.getEdges().get(3).getEdgeWeight()));
+    	
+    	
 	}
 }

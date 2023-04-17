@@ -8,7 +8,7 @@ import edu.neu.csye6205.finalProject.Paurush.Node;
 
 
 public class Nodes {
-	private static List<Node> nodes;
+	public static List<Node> nodes;
 
 	public static void addNode(Node n) {
 		if (nodes == null) {

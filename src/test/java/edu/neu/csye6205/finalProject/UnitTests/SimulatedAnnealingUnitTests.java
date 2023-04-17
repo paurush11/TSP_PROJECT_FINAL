@@ -1,41 +1,73 @@
 package edu.neu.csye6205.finalProject.UnitTests;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jgrapht.alg.util.Pair;
+import org.junit.Test;
+
+import edu.neu.csye6205.finalProject.Paurush.CustomGraph;
+import edu.neu.csye6205.finalProject.Paurush.Driver;
+import edu.neu.csye6205.finalProject.Paurush.Edge;
 import edu.neu.csye6205.finalProject.Paurush.Node;
-import edu.neu.csye6205.finalProject.Paurush.SimulatedAnnealing.SimulatedAnnealingOptimization;
+import edu.neu.csye6205.finalProject.Paurush.PrimAlgorithm;
+import edu.neu.csye6205.finalProject.Paurush.SimulatedAnnealing.SA2opt;
+import edu.neu.csye6205.finalProject.Paurush.util.Distance;
+import edu.neu.csye6205.finalProject.Paurush.util.Nodes;
 
 public class SimulatedAnnealingUnitTests {
 
-	    //@Test
+	    @Test
 	    public void testSimulatedAnnealingOptimization() {
 	        // Create a sample tour
-	        List<Node> tour = new ArrayList<>();
-	        
-			tour.add(new Node("CityA", -0.016542, 51.515192));
-			tour.add(new Node("CityB", -0.236815, 51.406763));
-			tour.add(new Node("CityC", -0.184411, 51.495871));
-			tour.add(new Node("CityD", -0.268832, 51.464685));
+		    CustomGraph graph = new CustomGraph();
+		    
+			Node nodeA = new Node("A", -0.016542, 51.515192);
+			Node nodeB = new Node("B", -0.236815, 51.406763);
+			Node nodeC = new Node("C", -0.184411, 51.495871);
+			Node nodeD = new Node("D", -0.268832, 51.464685);
+			Node nodeE = new Node("E", -0.098618, 51.415897);
+			
+			
+			Nodes.addNode(nodeA);
+			Nodes.addNode(nodeB);
+			Nodes.addNode(nodeC);
+			Nodes.addNode(nodeD);
+			Nodes.addNode(nodeE);
+			
+			graph.setNodes(Nodes.getNodes());
 
-	        // Run the optimization
-	        List<Node> optimizedTour = SimulatedAnnealingOptimization.simulatedAnnealingOptimization(tour);
+			
+			for (int i = 0; i < Nodes.getNodes().size(); i++) {
+				for (int j = i + 1; j < Nodes.getNodes().size(); j++) {
+					graph.addEdge(new Edge(Nodes.getNode(i), Nodes.getNode(j),
+							Distance.measureDistance(Nodes.getNode(i), Nodes.getNode(j))));
+				}
+			}
 
-	        // Verify that the optimized tour has the same nodes as the original tour
-	        assertEquals(tour.size(), optimizedTour.size());
-	        for (int i = 0; i < tour.size(); i++) {
-	            Node originalNode = tour.get(i);
-	            Node optimizedNode = optimizedTour.get(i);
-	            assertEquals(originalNode.getLatitude(), optimizedNode.getLatitude(), 0.001);
-	            assertEquals(originalNode.getLongitude(), optimizedNode.getLongitude(), 0.001);
-	        }
+			CustomGraph mst = PrimAlgorithm.findMinimumSpanningTree(graph);
 
-	        // Verify that the optimized tour has a lower cost than the original tour
-	        double originalCost = SimulatedAnnealingOptimization.calculateTourCost(tour);
-	        double optimizedCost = SimulatedAnnealingOptimization.calculateTourCost(optimizedTour);
-	        
-	        assertEquals(true, optimizedCost < originalCost);
+			List<Pair<Node, Node>> perfectMatchingPairs = Driver.generatePerfectMatching(mst);
+
+			System.out.println("----------------------------------");
+			CustomGraph Multi = Driver.generateMultigraph(mst, perfectMatchingPairs);
+			
+			List<Node> eulerianTour = Driver.getEulerianTour(Multi);
+			
+			List<Node> hamiltonianTour = Driver.getHamiltonianTour(eulerianTour);
+			
+			double d = Driver.calculatePathDistance(hamiltonianTour);
+			List<Node> hamiltonianTourCopy = new ArrayList<Node>();
+			hamiltonianTour.forEach(z ->{
+				 hamiltonianTourCopy.add(z);
+			});
+			
+			List<Node> SA = SA2opt.simulatedAnnealingOptimization(hamiltonianTourCopy);
+		
+			double two = Driver.calculatePathDistance(SA);
+			
+			assertTrue(two < d); 
 	    }
 	}

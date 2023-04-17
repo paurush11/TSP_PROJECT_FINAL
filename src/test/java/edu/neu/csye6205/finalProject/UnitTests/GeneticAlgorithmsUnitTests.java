@@ -1,68 +1,73 @@
 package edu.neu.csye6205.finalProject.UnitTests;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jgrapht.alg.util.Pair;
 import org.junit.Test;
 
+import edu.neu.csye6205.finalProject.Paurush.CustomGraph;
+import edu.neu.csye6205.finalProject.Paurush.Driver;
+import edu.neu.csye6205.finalProject.Paurush.Edge;
 import edu.neu.csye6205.finalProject.Paurush.Node;
+import edu.neu.csye6205.finalProject.Paurush.PrimAlgorithm;
 import edu.neu.csye6205.finalProject.Paurush.GeneticAlgorithm.GeneticAlgorithm;
+import edu.neu.csye6205.finalProject.Paurush.util.Distance;
+import edu.neu.csye6205.finalProject.Paurush.util.Nodes;
 
 public class GeneticAlgorithmsUnitTests {
-	
+   
     @Test
-    public void optimize_GivenSingleNode_ReturnsSingleNode() {
-        List<Node> nodes = new ArrayList<>();
-        nodes.add(new Node("A", -0.016542, 51.515192));
-        List<Node> optimizedNodes = GeneticAlgorithm.optimize(nodes);
-        assertEquals(nodes, optimizedNodes);
+    public void optimize_GivenTenNodes_ReturnsCorrectOrder() {
+	    CustomGraph graph = new CustomGraph();
+	    
+		Node nodeA = new Node("A", -0.016542, 51.515192);
+		Node nodeB = new Node("B", -0.236815, 51.406763);
+		Node nodeC = new Node("C", -0.184411, 51.495871);
+		Node nodeD = new Node("D", -0.268832, 51.464685);
+		Node nodeE = new Node("E", -0.098618, 51.415897);
+	
+		Nodes.addNode(nodeA);
+		Nodes.addNode(nodeB);
+		Nodes.addNode(nodeC);
+		Nodes.addNode(nodeD);
+		Nodes.addNode(nodeE);
+		
+		graph.setNodes(Nodes.getNodes());
+
+		
+		for (int i = 0; i < Nodes.getNodes().size(); i++) {
+			for (int j = i + 1; j < Nodes.getNodes().size(); j++) {
+				graph.addEdge(new Edge(Nodes.getNode(i), Nodes.getNode(j),
+						Distance.measureDistance(Nodes.getNode(i), Nodes.getNode(j))));
+			}
+		}
+
+		CustomGraph mst = PrimAlgorithm.findMinimumSpanningTree(graph);
+
+		List<Pair<Node, Node>> perfectMatchingPairs = Driver.generatePerfectMatching(mst);
+		
+		//Now generate MultiGraph for the above 
+		System.out.println("----------------------------------");
+		CustomGraph Multi = Driver.generateMultigraph(mst, perfectMatchingPairs);
+		
+		List<Node> eulerianTour = Driver.getEulerianTour(Multi);
+		
+		List<Node> hamiltonianTour = Driver.getHamiltonianTour(eulerianTour);
+		
+		double d = Driver.calculatePathDistance(hamiltonianTour);
+
+		List<Node> hamiltonianTourCopy = new ArrayList<Node>();
+		hamiltonianTour.forEach(z ->{
+			 hamiltonianTourCopy.add(z);
+		});
+	
+		List<Node> geneticAlgo = GeneticAlgorithm.optimize(hamiltonianTourCopy);
+		
+		double two = Driver.calculatePathDistance(geneticAlgo);
+		
+		assertTrue(two < d);  
     }
-
-//    @Test
-//    public void optimize_GivenTwoNodes_ReturnsCorrectOrder() {
-//        List<Node> nodes = new ArrayList<>();
-//        nodes.add(new Node("A", -0.016542, 51.515192));
-//        nodes.add( new Node("B", -0.236815, 51.406763));
-//        List<Node> optimizedNodes = GeneticAlgorithm.optimize(nodes);
-//    }
-
-//    @Test
-//    public void optimize_GivenThreeNodes_ReturnsCorrectOrder() {
-//        List<Node> nodes = new ArrayList<>();
-//        nodes.add(new Node("A", -0.016542, 51.515192));
-//        nodes.add(new Node("B", -0.236815, 51.406763));
-//        nodes.add(new Node("C", -0.184411, 51.495871));
-//        List<Node> optimizedNodes = GeneticAlgorithm.optimize(nodes);
-//        assertEquals(nodes, optimizedNodes);
-//    }
-//
-//    @Test
-//    public void optimize_GivenFourNodes_ReturnsCorrectOrder() {
-//        List<Node> nodes = new ArrayList<>();
-//        nodes.add(new Node("A", -0.016542, 51.515192));
-//        nodes.add(new Node("B", -0.236815, 51.406763));
-//        nodes.add(new Node("C", -0.184411, 51.495871));
-//        nodes.add(new Node("D", -0.268832, 51.464685));
-//        List<Node> optimizedNodes = GeneticAlgorithm.optimize(nodes);
-//        assertEquals(nodes, optimizedNodes);
-//    }
-//
-//    @Test
-//    void optimize_GivenTenNodes_ReturnsCorrectOrder() {
-//        List<Node> nodes = new ArrayList<>();
-//        nodes.add(new Node(0, 0));
-//        nodes.add(new Node(1, 1));
-//        nodes.add(new Node(2, 2));
-//        nodes.add(new Node(3, 3));
-//        nodes.add(new Node(4, 4));
-//        nodes.add(new Node(5, 5));
-//        nodes.add(new Node(6, 6));
-//        nodes.add(new Node(7, 7));
-//        nodes.add(new Node(8, 8));
-//        nodes.add(new Node(9, 9));
-//        List<Node> optimizedNodes = GeneticAlgorithm.optimize(nodes);
-//        assertEquals(nodes, optimizedNodes);
-//    }
 }

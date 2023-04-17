@@ -6,7 +6,8 @@ public class Node {
 	private String id;
 	private double latitude;
 	private double longitude;
-	 private static final double CONVERT_DEGREES_TO_RADIANS = Math.PI/180D;
+	private static final double CONVERT_DEGREES_TO_RADIANS = Math.PI/180D;
+	 
 	public Node(String ID, double parseDouble, double parseDouble2) {
 		// TODO Auto-generated constructor stub
 		this.id = ID;
@@ -47,8 +48,4 @@ public class Node {
 		// TODO Auto-generated method stub
 		return new Point((int)this.getLatitude(),(int)this.getLongitude());
 	}
-	
-	
-	
 }
-

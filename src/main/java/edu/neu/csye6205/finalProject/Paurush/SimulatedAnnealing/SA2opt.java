@@ -62,7 +62,7 @@ public class SA2opt {
         }
     }
 
-	private static double calculateTourCost(List<Node> tour) {
+	public static double calculateTourCost(List<Node> tour) {
 	    double cost = 0;
 	    for (int i = 0; i < tour.size() - 1; i++) {
 	        Node currentNode = tour.get(i);

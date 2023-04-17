@@ -37,8 +37,8 @@ public class GraphAnimator {
 
         double xMin = -0.010;
         double xMax = 0.005;
-        double yMin = 0.8954;
-        double yMax = 0.9026;
+        double yMin = 0.8944;
+        double yMax = 0.9036;
 
         for (int i = 0; i < nFrames; i++) {
             BufferedImage frame = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);

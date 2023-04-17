@@ -95,12 +95,12 @@ public class Driver {
 		double two = calculatePathDistance(opt2);
 		double sa_val = calculatePathDistance(SA);
 		double genetic_val = calculatePathDistance(geneticAlgo);
-		System.out.println("\n--- Hamiltonian Tour   " + d + "   Miles");
-		System.out.println("\n--- MST   " + x + "   Miles");
-		System.out.println("\n--- Three Opt   " + three + "   Miles");
-		System.out.println("\n--- Two Opt   " + two + "   Miles");
-		System.out.println("\n--- SA   " + sa_val + "   Miles");
-		System.out.println("\n--- genetic  " + genetic_val + "   Miles");
+		System.out.println("\n--- Hamiltonian Tour   " + d + "   meters");
+		System.out.println("\n--- MST   " + x + "   meters");
+		System.out.println("\n--- Three Opt   " + three + "   meters");
+		System.out.println("\n--- Two Opt   " + two + "   meters");
+		System.out.println("\n--- SA   " + sa_val + "   meters");
+		System.out.println("\n--- genetic  " + genetic_val + "   meters");
 		System.out.println();
 		System.out.println("\n--- Hamiltonian Tour/MST   " + d/x);
 		System.out.println("\n--- Three Opt/MST   " + three/x);

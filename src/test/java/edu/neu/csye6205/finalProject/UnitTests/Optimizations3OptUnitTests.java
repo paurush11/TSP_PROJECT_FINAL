@@ -1,40 +1,73 @@
 package edu.neu.csye6205.finalProject.UnitTests;
-
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jgrapht.alg.util.Pair;
 import org.junit.Test;
 
+import edu.neu.csye6205.finalProject.Paurush.CustomGraph;
+import edu.neu.csye6205.finalProject.Paurush.Driver;
+import edu.neu.csye6205.finalProject.Paurush.Edge;
 import edu.neu.csye6205.finalProject.Paurush.Node;
+import edu.neu.csye6205.finalProject.Paurush.PrimAlgorithm;
 import edu.neu.csye6205.finalProject.Paurush.tactical.optimization3opt;
+import edu.neu.csye6205.finalProject.Paurush.util.Distance;
+import edu.neu.csye6205.finalProject.Paurush.util.Nodes;
 
 public class Optimizations3OptUnitTests {
 
-	//@Test
-	void testThreeOpt() {
-		// Create a list of nodes representing a route
-		List<Node> route = new ArrayList<Node>();
-		route.add(new Node("CityA", 0, 0));
-		route.add(new Node("CityB", 1, 1));
-		route.add(new Node("CityC", 2, 2));
-		route.add(new Node("CityD", 3, 3));
-		route.add(new Node("CityE", 4, 4));
-		route.add(new Node("CityF", 5, 5));
+	@Test
+	public void testThreeOpt() {
+	    CustomGraph graph = new CustomGraph();
+	    
+		Node nodeA = new Node("A", -0.016542, 51.515192);
+		Node nodeB = new Node("B", -0.236815, 51.406763);
+		Node nodeC = new Node("C", -0.184411, 51.495871);
+		Node nodeD = new Node("D", -0.268832, 51.464685);
+		Node nodeE = new Node("E", -0.098618, 51.415897);
+		
+		
+		Nodes.addNode(nodeA);
+		Nodes.addNode(nodeB);
+		Nodes.addNode(nodeC);
+		Nodes.addNode(nodeD);
+		Nodes.addNode(nodeE);
+		
+		graph.setNodes(Nodes.getNodes());
 
-		// Apply the 3-opt algorithm to the route
-		List<Node> optimizedRoute = optimization3opt.threeOpt(route);
+		
+		for (int i = 0; i < Nodes.getNodes().size(); i++) {
+			for (int j = i + 1; j < Nodes.getNodes().size(); j++) {
+				graph.addEdge(new Edge(Nodes.getNode(i), Nodes.getNode(j),
+						Distance.measureDistance(Nodes.getNode(i), Nodes.getNode(j))));
+			}
+		}
 
-		// Verify that the optimized route has the same number of nodes as the original
-		// route
-		assertEquals(route.size(), optimizedRoute.size());
+		CustomGraph mst = PrimAlgorithm.findMinimumSpanningTree(graph);
+		
+		List<Pair<Node, Node>> perfectMatchingPairs = Driver.generatePerfectMatching(mst);
+		
+		//Now generate MultiGraph for the above 
+		System.out.println("----------------------------------");
+		CustomGraph Multi = Driver.generateMultigraph(mst, perfectMatchingPairs);
+		
+		List<Node> eulerianTour = Driver.getEulerianTour(Multi);
+		
+		List<Node> hamiltonianTour = Driver.getHamiltonianTour(eulerianTour);
+		
+		double d = Driver.calculatePathDistance(hamiltonianTour);
 
-		// Verify that the optimized route has a shorter distance than the original
-		// route
-		double originalDistance = optimization3opt.calculateDistance(route);
-		double optimizedDistance = optimization3opt.calculateDistance(optimizedRoute);
-		assertTrue(optimizedDistance < originalDistance);
+		List<Node> hamiltonianTourCopy = new ArrayList<Node>();
+		hamiltonianTour.forEach(z ->{
+			 hamiltonianTourCopy.add(z);
+		});
+		
+		List<Node> opt3 = optimization3opt.threeOpt(hamiltonianTourCopy);
+		
+		double three = Driver.calculatePathDistance(opt3);
+		
+		assertTrue(three < d); 
 	}
 }

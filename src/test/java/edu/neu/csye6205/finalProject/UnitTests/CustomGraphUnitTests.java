@@ -1,8 +1,8 @@
-package edu.neu.csye6205.finalProject.test1;
+package edu.neu.csye6205.finalProject.UnitTests;
 
 import org.junit.Test;
 
-public class Test1 {
+public class CustomGraphUnitTests {
 
 	@Test
 	public void testSequence() {

@@ -5,6 +5,10 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+
 
 public class GraphAnimator {
     private final CustomGraph graph;
@@ -70,6 +74,13 @@ public class GraphAnimator {
 
             frames.add(frame);
             g2d.dispose();
+            
+            try {
+                File outputfile = new File("animation_frames/frame_ "+ name + i + ".png");
+                ImageIO.write(frame, "png", outputfile);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         JFrame frame = new JFrame();

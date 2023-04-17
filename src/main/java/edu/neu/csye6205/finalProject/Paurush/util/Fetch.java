@@ -22,7 +22,7 @@ public class Fetch {
                 dataList.add(values);
             }
            
-            for (int i = 1; i < dataList.size(); i++) {
+            for (int i = 1; i < dataList.size()- 400; i++) {
             	 if (!dataList.get(i)[2].isEmpty() && !dataList.get(i)[1].isEmpty()) {
             		 Node customCity = new Node(dataList.get(i)[0].substring(Math.max(dataList.get(i)[0].length() - 5, 0)), Double.parseDouble(dataList.get(i)[2]), Double.parseDouble(dataList.get(i)[1]));
                Nodes.addNode(customCity);
@@ -37,7 +37,8 @@ public class Fetch {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Solve("/Users/paurushbatish/Desktop/FinalProjectPSA/src/main/java/edu/neu/csye6205/finalProject/Paurush/extra.csv");
+//		Solve("/Users/paurushbatish/Desktop/FinalProjectPSA/src/main/java/edu/neu/csye6205/finalProject/Paurush/extra.csv");
+		Solve("src/main/java/edu/neu/csye6205/finalProject/Paurush/extra.csv");
 		
 //		 Nodes.getNodes().forEach(n->{
 //			System.out.println(n.getId()+ " "+ n.getLatitude()+ " "+ n.getLongitude());

@@ -72,14 +72,14 @@ public class Driver {
 		System.out.println(edges3.size());
 		
 		List<Node> eulerianTour = getEulerianTour(Multi);
-		for(Node n : eulerianTour) {
-			System.out.print(n + ",");
-		}
-		System.out.println("\n---");
+//		for(Node n : eulerianTour) {
+//			System.out.print(n + ",");
+//		}
+//		System.out.println("\n---");
 		List<Node> hamiltonianTour = getHamiltonianTour(eulerianTour);
-		for(Node n : hamiltonianTour) {
-			System.out.print(n + ",");
-		}
+//		for(Node n : hamiltonianTour) {
+//			System.out.print(n + ",");
+//		}
 		
 		double d = calculatePathDistance(hamiltonianTour);
 		double x = calculatePathDistance(mst);

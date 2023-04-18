@@ -17,19 +17,17 @@ import edu.neu.csye6205.finalProject.Paurush.Edge;
 import edu.neu.csye6205.finalProject.Paurush.Node;
 
 public class GraphVisualizer extends JPanel {
-    private CustomGraph graph;
-    private List<Node> nodes;
+    private static final long serialVersionUID = 1L;
+	private List<Node> nodes;
     private List<Edge> edges;
     private int pointRadius = 10;
 
     public GraphVisualizer(CustomGraph graph) {
-        this.graph = graph;
         nodes = new ArrayList<Node>(graph.getNodes());
         edges = new ArrayList<Edge>(graph.getEdges());
     }
 
     public void setGraph(CustomGraph graph) {
-        this.graph = graph;
         nodes = new ArrayList<Node>(graph.getNodes());
         edges = new ArrayList<Edge>(graph.getEdges());
         repaint();

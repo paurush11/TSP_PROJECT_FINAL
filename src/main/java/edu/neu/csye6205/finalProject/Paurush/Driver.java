@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.io.IOException;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Deque;
 import java.util.HashMap;
@@ -13,31 +12,23 @@ import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Set;
-import java.util.stream.IntStream;
-
 import javax.swing.JFrame;
 
 import org.jgrapht.alg.util.Pair;
 
 
-import edu.neu.csye6205.finalProject.Paurush.ACO.runACO;
 import edu.neu.csye6205.finalProject.Paurush.GeneticAlgorithm.GeneticAlgorithm;
 import edu.neu.csye6205.finalProject.Paurush.GraphVisualizer.GraphVisualizer;
-import edu.neu.csye6205.finalProject.Paurush.GraphVisualizer.MSTVisualizer;
 import edu.neu.csye6205.finalProject.Paurush.SimulatedAnnealing.SA2opt;
 import edu.neu.csye6205.finalProject.Paurush.SimulatedAnnealing.SA3opt;
 import edu.neu.csye6205.finalProject.Paurush.SimulatedAnnealing.SimulatedAnnealingOptimization;
-import edu.neu.csye6205.finalProject.Paurush.tactical.optimization2opt;
-import edu.neu.csye6205.finalProject.Paurush.tactical.optimization3opt;
 import edu.neu.csye6205.finalProject.Paurush.util.*;
-import edu.uci.ics.jung.graph.Graph;
 
 
 public class Driver {
 	public static CustomGraph graph;
 	public static void main(String[] args) throws IOException, InterruptedException {
 		
-		Driver driver = new Driver();
 		Driver.graph = new CustomGraph();
 		Fetch.main(args);
 		graph.setNodes(Nodes.getNodes());
@@ -58,7 +49,7 @@ public class Driver {
 		List<Pair<Node, Node>> perfectMatchingPairs = generatePerfectMatching(mst);
 		
 		//Now generate MultiGraph for the above 
-		System.out.println("----------------------------------");
+		
 		CustomGraph Multi = generateMultigraph(mst, perfectMatchingPairs);
 
 	
@@ -66,43 +57,43 @@ public class Driver {
 		List<Node> hamiltonianTour = getHamiltonianTour(eulerianTour);
 
 		
-		double d = calculatePathDistance(hamiltonianTour);
-		double x = calculatePathDistance(mst);
+		double hamiltonianTourDistance = calculatePathDistance(hamiltonianTour);
+		double mstTourDistance = calculatePathDistance(mst);
 		List<Node> hamiltonianTourCopy = new ArrayList<Node>();
 		hamiltonianTour.forEach(z ->{
 			 hamiltonianTourCopy.add(z);
 		});
 //		List<Node> opt3 = optimization3opt.threeOpt(hamiltonianTourCopy);
-		List<Node>opt3 = SA3opt.simulatedAnnealingOptimization(hamiltonianTourCopy);
-		List<Node> SA = SimulatedAnnealingOptimization.simulatedAnnealingOptimization(hamiltonianTourCopy);
-		List<Node> geneticAlgo = GeneticAlgorithm.optimize(hamiltonianTour);
-		List<Node> opt2 =SA2opt.simulatedAnnealingOptimization(hamiltonianTourCopy);
-		double three = calculatePathDistance(opt3);
-		double two = calculatePathDistance(opt2);
-		double sa_val = calculatePathDistance(SA);
-		double genetic_val = calculatePathDistance(geneticAlgo);
+		List<Node>opt3TourNodes = SA3opt.simulatedAnnealingOptimization(hamiltonianTourCopy);
+		List<Node> sATourNodes = SimulatedAnnealingOptimization.simulatedAnnealingOptimization(hamiltonianTourCopy);
+		List<Node> geneticAlgoTourNodes = GeneticAlgorithm.optimize(hamiltonianTour);
+		List<Node> opt2TourNodes =SA2opt.simulatedAnnealingOptimization(hamiltonianTourCopy);
+		double threeOptTourDistance = calculatePathDistance(opt3TourNodes);
+		double twoOptTourDistance= calculatePathDistance(opt2TourNodes);
+		double sATourDistance = calculatePathDistance(sATourNodes);
+		double geneticAlgorithmTourDistance = calculatePathDistance(geneticAlgoTourNodes);
 		
-		print(mst.getNodes(), "MST", x, x);
-		print(hamiltonianTour, "TSP- using Christofidies", d, x);
-		print(opt3, "TSP- using threeOpt", three,x);
-		print(SA, "TSP- using Simulated Annealing Optimization", sa_val,x);
-		print(opt2, "TSP- using twoOpt", two,x);
-		print(geneticAlgo, "TSP- using Genetic Algorithm", genetic_val,x);
+		print(mst.getNodes(), "MST", mstTourDistance, mstTourDistance);
+		print(hamiltonianTour, "TSP- using Christofidies", hamiltonianTourDistance, mstTourDistance);
+		print(opt3TourNodes, "TSP- using threeOpt", threeOptTourDistance,mstTourDistance);
+		print(sATourNodes, "TSP- using Simulated Annealing Optimization", sATourDistance,mstTourDistance);
+		print(opt2TourNodes, "TSP- using twoOpt", twoOptTourDistance,mstTourDistance);
+		print(geneticAlgoTourNodes, "TSP- using Genetic Algorithm", geneticAlgorithmTourDistance,mstTourDistance);
 	
 		NodeGraph.plot(hamiltonianTourCopy);
 		CustomGraph graphFinal = createGraph(hamiltonianTour);
 
-		GraphAnimator christofidies = new GraphAnimator(graphFinal,"TSP- using Christofidies",Color.RED,Color.BLUE);
-		GraphAnimator threeOpt = new GraphAnimator(graphFinal,"TSP- using threeOpt",Color.RED,Color.BLUE);
-		GraphAnimator twoOpt = new GraphAnimator(graphFinal,"TSP- using twoOpt",Color.RED,Color.BLUE);
-		GraphAnimator SAOpt = new GraphAnimator(graphFinal,"TSP- using SAOpt",Color.RED,Color.BLUE);
-		GraphAnimator Genetic = new GraphAnimator(graphFinal,"TSP- using Genetic",Color.RED,Color.BLUE);
+		GraphAnimator christofidiesGraph = new GraphAnimator(graphFinal,"TSP- using Christofidies",Color.RED,Color.BLUE);
+		GraphAnimator threeOptGraph = new GraphAnimator(graphFinal,"TSP- using threeOpt",Color.RED,Color.BLUE);
+		GraphAnimator twoOptGraph = new GraphAnimator(graphFinal,"TSP- using twoOpt",Color.RED,Color.BLUE);
+		GraphAnimator sAOptGraph = new GraphAnimator(graphFinal,"TSP- using SAOpt",Color.RED,Color.BLUE);
+		GraphAnimator geneticGraph = new GraphAnimator(graphFinal,"TSP- using Genetic",Color.RED,Color.BLUE);
 		
-		christofidies.animate();
-		threeOpt.animate();
-		twoOpt.animate();
-		SAOpt.animate();
-		Genetic.animate();
+		christofidiesGraph.animate();
+		threeOptGraph.animate();
+		twoOptGraph.animate();
+		sAOptGraph.animate();
+		geneticGraph.animate();
 		
 //		visualizeGraph(graphFinal, driver.graph.getNodes());
 //		visualizeGraph(graphFinal);
@@ -115,9 +106,9 @@ public class Driver {
 			System.out.print(e.getId() + ",");
 		});
 		System.out.print("]\n");
-		System.out.println("\n---" + distance + "   meters");
+		System.out.println("\n--- Tour Distance" + distance + "   meters");
 		System.out.println("Ratio");
-		System.out.println("\n---" + distance/mst + "   meters");
+		System.out.println("\n--- Ratio" + distance/mst + "   meters");
 		System.out.println("---------------------------------------");
 	}
 	public static void visualizeGraph(CustomGraph graph, List<Node> nodes) {

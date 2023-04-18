@@ -2,16 +2,8 @@ package edu.neu.csye6205.finalProject.Paurush.GraphVisualizer;
 import edu.neu.csye6205.finalProject.Paurush.Edge;
 import edu.neu.csye6205.finalProject.Paurush.CustomGraph;
 import edu.neu.csye6205.finalProject.Paurush.Node;
-import edu.uci.ics.jung.algorithms.layout.*;
-import edu.uci.ics.jung.visualization.*;
-import edu.uci.ics.jung.visualization.decorators.*;
-import edu.uci.ics.jung.visualization.renderers.Renderer.VertexLabel.Position;
 import org.graphstream.graph.implementations.SingleGraph;
 import org.graphstream.ui.view.Viewer;
-import java.awt.*;
-import java.util.function.Function;
-
-import javax.swing.*;
 public class MSTVisualizer {
 	public static void visualizeMST(CustomGraph mst) {
         // Create a GraphStream graph based on the MST graph

@@ -2,9 +2,7 @@ package edu.neu.csye6205.finalProject.Paurush.GraphVisualizer;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Point;
 import java.util.List;
-import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -17,7 +15,9 @@ public class visualizeGraph {
 	public static void visualizeGraphDrawer(CustomGraph graph, List<Node> nodes) throws InterruptedException {
 	    // create a new panel to draw the nodes and edges
 	    JPanel panel = new JPanel() {
-	        @Override
+	        private static final long serialVersionUID = 1L;
+
+			@Override
 	        protected void paintComponent(Graphics g) {
 	            super.paintComponent(g);
 	            // plot all the nodes

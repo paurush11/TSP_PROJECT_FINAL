@@ -3,8 +3,6 @@ package edu.neu.csye6205.finalProject.Paurush.SimulatedAnnealing;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
-
 import edu.neu.csye6205.finalProject.Paurush.Node;
 import edu.neu.csye6205.finalProject.Paurush.util.Distance;
 

@@ -9,9 +9,9 @@ import edu.neu.csye6205.finalProject.Paurush.Node;
 
 public class GeneticAlgorithm {
 	public static final int populationSize = 1500;
-	public static final double mutationRate = 0.005;
+	public static final double mutationRate = 0.003;
     public static final int tournamentSize = 3;
-    public static final int elitismCount = 60;
+    public static final int elitismCount = 20;
     public static final int generations = 1500;  
   
     public static List<Node> optimize(List<Node> nodes) {

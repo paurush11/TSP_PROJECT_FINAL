@@ -48,38 +48,23 @@ public class Driver {
 						Distance.measureDistance(Nodes.getNode(i), Nodes.getNode(j))));
 			}
 		}
-
 	
 //		GraphPlotter.plotGraph(graph);
 		CustomGraph mst = PrimAlgorithm.findMinimumSpanningTree(graph);
 		
 		
 //		GraphPlotter.plotGraph(mst);
-//        System.out.println("----------------------------------");
-//		// Print out the nodes and edges in the MST
-		List<Node> nodes2 = mst.getNodes();
-		List<Edge> edges2 = mst.getEdges();
-//		
-//		
 		//Now we generate perfect matching pairs
 		List<Pair<Node, Node>> perfectMatchingPairs = generatePerfectMatching(mst);
 		
 		//Now generate MultiGraph for the above 
 		System.out.println("----------------------------------");
 		CustomGraph Multi = generateMultigraph(mst, perfectMatchingPairs);
-		List<Node> nodes3 = Multi.getNodes();
-		List<Edge> edges3 = Multi.getEdges();
 
-		
+	
 		List<Node> eulerianTour = getEulerianTour(Multi);
-//		for(Node n : eulerianTour) {
-//			System.out.print(n + ",");
-//		}
-//		System.out.println("\n---");
 		List<Node> hamiltonianTour = getHamiltonianTour(eulerianTour);
-//		for(Node n : hamiltonianTour) {
-//			System.out.print(n + ",");
-//		}
+
 		
 		double d = calculatePathDistance(hamiltonianTour);
 		double x = calculatePathDistance(mst);
@@ -96,18 +81,14 @@ public class Driver {
 		double two = calculatePathDistance(opt2);
 		double sa_val = calculatePathDistance(SA);
 		double genetic_val = calculatePathDistance(geneticAlgo);
-		System.out.println("\n--- Hamiltonian Tour   " + d + "   meters");
-		System.out.println("\n--- MST   " + x + "   meters");
-		System.out.println("\n--- Three Opt   " + three + "   meters");
-		System.out.println("\n--- Two Opt   " + two + "   meters");
-		System.out.println("\n--- SA   " + sa_val + "   meters");
-		System.out.println("\n--- genetic  " + genetic_val + "   meters");
-		System.out.println();
-		System.out.println("\n--- Hamiltonian Tour/MST   " + d/x);
-		System.out.println("\n--- Three Opt/MST   " + three/x);
-		System.out.println("\n--- Two Opt/MST   " + two/x);
-		System.out.println("\n--- SA/MST   " + sa_val/x);
-		System.out.println("\n--- genetic/MST   " + genetic_val/x );
+		
+		print(mst.getNodes(), "MST", x, x);
+		print(hamiltonianTour, "TSP- using Christofidies", d, x);
+		print(opt3, "TSP- using threeOpt", three,x);
+		print(SA, "TSP- using Simulated Annealing Optimization", sa_val,x);
+		print(opt2, "TSP- using twoOpt", two,x);
+		print(geneticAlgo, "TSP- using Genetic Algorithm", genetic_val,x);
+	
 		NodeGraph.plot(hamiltonianTourCopy);
 		CustomGraph graphFinal = createGraph(hamiltonianTour);
 
@@ -126,6 +107,19 @@ public class Driver {
 //		visualizeGraph(graphFinal, driver.graph.getNodes());
 //		visualizeGraph(graphFinal);
 		}
+	public static void print(List<Node>nodes, String name, double distance, double mst) {
+		System.out.println("---------------------------------------");
+		System.out.println(name);
+		System.out.print("[");
+		nodes.forEach(e->{
+			System.out.print(e.getId() + ",");
+		});
+		System.out.print("]\n");
+		System.out.println("\n---" + distance + "   meters");
+		System.out.println("Ratio");
+		System.out.println("\n---" + distance/mst + "   meters");
+		System.out.println("---------------------------------------");
+	}
 	public static void visualizeGraph(CustomGraph graph, List<Node> nodes) {
 	    // create a new visualizer
 	    GraphVisualizer visualizer = new GraphVisualizer(graph);

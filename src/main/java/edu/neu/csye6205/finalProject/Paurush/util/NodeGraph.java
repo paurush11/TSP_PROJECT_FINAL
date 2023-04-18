@@ -29,7 +29,7 @@ public class NodeGraph {
 
         // Create the chart
         JFreeChart chart = ChartFactory.createScatterPlot(
-                "Graph Plot",
+                "Graph for Christofidies Path",
                 "Longitude",
                 "Latitude",
                 dataset

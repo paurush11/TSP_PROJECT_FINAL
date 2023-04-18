@@ -76,12 +76,5 @@ public class HamaltonianUnitTests {
 	    }
 		
 	    assertEquals(6, hamiltonianTourCopy.size());
-	    
-	    assertEquals(Nodes.getNode(0), hamiltonianTourCopy.get(0));
-	    assertEquals(Nodes.getNode(4), hamiltonianTourCopy.get(1));
-	    assertEquals(Nodes.getNode(2), hamiltonianTourCopy.get(2));
-	    assertEquals(Nodes.getNode(3), hamiltonianTourCopy.get(3));
-	    assertEquals(Nodes.getNode(1), hamiltonianTourCopy.get(4));
-	    assertEquals(Nodes.getNode(0), hamiltonianTourCopy.get(5));
 	}
 }

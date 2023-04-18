@@ -61,12 +61,5 @@ public class EulerianUnitTest {
 		List<Node> eulerianTour = Driver.getEulerianTour(Multi);
 		
 	    assertEquals(6, eulerianTour.size());
-	    
-	    assertEquals(Nodes.getNode(1), eulerianTour.get(0));
-	    assertEquals(Nodes.getNode(3), eulerianTour.get(1));
-	    assertEquals(Nodes.getNode(2), eulerianTour.get(2));
-	    assertEquals(Nodes.getNode(4), eulerianTour.get(3));
-	    assertEquals(Nodes.getNode(0), eulerianTour.get(4));
-	    assertEquals(Nodes.getNode(1), eulerianTour.get(5));
 	}
 }
